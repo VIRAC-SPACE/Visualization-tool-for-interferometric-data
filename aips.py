@@ -126,35 +126,35 @@ def main():
         elif  source == "EV_LAC":
             scan_list = source_EV_LAC_scans
         
-        fig1, ax1 = plt.subplots(nrows=1, ncols=8, figsize=(16, 16), dpi=150)
+        fig1, ax1 = plt.subplots(nrows=8, ncols=1, figsize=(16, 16), dpi=150, sharex=True)
         fig1.suptitle(source + " raw " + "dynamic spectrum")
 
-        #fig2, ax2 = plt.subplots(nrows=1, ncols=8, figsize=(16, 16), dpi=150, sharey=True)
-        #fig2.suptitle(source + " raw " + " IF plots ")
+        fig2, ax2 = plt.subplots(nrows=1, ncols=8, figsize=(16, 16), dpi=150, sharey=True)
+        fig2.suptitle(source + " raw " + " IF plots ")
 
-        fig3, ax3 = plt.subplots(nrows=8, ncols=1, figsize=(16, 16), dpi=150)
+        fig3, ax3 = plt.subplots(nrows=8, ncols=1, figsize=(16, 16), dpi=150, sharex=True)
         fig3.suptitle(source + " banpass corrected " + " dynamic spectrum ")
 
-        #fig4, ax4 = plt.subplots(nrows=1, ncols=8, figsize=(16, 16), dpi=150, sharey=True)
-        #fig4.suptitle(source + " banpass corrected " + " IF plots ")
+        fig4, ax4 = plt.subplots(nrows=1, ncols=8, figsize=(16, 16), dpi=150, sharey=True)
+        fig4.suptitle(source + " banpass corrected " + " IF plots ")
 
-        #fig5, ax5 = plt.subplots(nrows=1, ncols=8, figsize=(16, 16), dpi=150)
-        #fig5.suptitle(source + " raw " + " avg freq ")
+        fig5, ax5 = plt.subplots(nrows=1, ncols=8, figsize=(16, 16), dpi=150)
+        fig5.suptitle(source + " raw " + " avg freq ")
 
-        #fig6, ax6 = plt.subplots(nrows=1, ncols=8, figsize=(16, 16), dpi=150)
-        #fig6.suptitle(source + " banpass corrected " + " avg freq ")
+        fig6, ax6 = plt.subplots(nrows=1, ncols=8, figsize=(16, 16), dpi=150)
+        fig6.suptitle(source + " banpass corrected " + " avg freq ")
 
-        #fig7, ax7 = plt.subplots(nrows=1, ncols=1, figsize=(16, 16), dpi=150)
-        #fig7.suptitle(source + " tsys ")
+        fig7, ax7 = plt.subplots(nrows=1, ncols=1, figsize=(16, 16), dpi=150)
+        fig7.suptitle(source + " tsys ")
 
-        fig8, ax8 = plt.subplots(nrows=1, ncols=8, figsize=(16, 16), dpi=150)
+        fig8, ax8 = plt.subplots(nrows=8, ncols=1, figsize=(16, 16), dpi=150, sharex=True)
         fig8.suptitle(source + " gain corrected " + "dynamic spectrum")
 
-        #fig9, ax9 = plt.subplots(nrows=1, ncols=8, figsize=(16, 16), dpi=150, sharey=True)
-        #fig9.suptitle(source + " gain corrected " + " IF plots")
+        fig9, ax9 = plt.subplots(nrows=1, ncols=8, figsize=(16, 16), dpi=150, sharey=True)
+        fig9.suptitle(source + " gain corrected " + " IF plots")
         
-        #fig10, ax10 = plt.subplots(nrows=1, ncols=8, figsize=(16, 16), dpi=150)
-        #fig10.suptitle(source + " gain corrected " + " avg freq")
+        fig10, ax10 = plt.subplots(nrows=1, ncols=8, figsize=(16, 16), dpi=150)
+        fig10.suptitle(source + " gain corrected " + " avg freq")
 
         fig11, ax11 = plt.subplots(nrows=1, ncols=1, figsize=(16, 16), dpi=150, sharex=True, sharey=True)
         fig11.suptitle(source + " model data")
@@ -178,8 +178,8 @@ def main():
             print(spw, "t_sys_rr", np.mean(t_sys_rr))
             print(spw, "t_sys_ll", np.mean(t_sys_ll))
 
-            #ax7.scatter(np.linspace(0, len(t_sys_rr), len(t_sys_rr)), t_sys_rr)
-            #ax7.scatter(np.linspace(0, len(t_sys_ll), len(t_sys_ll)), t_sys_ll)
+            ax7.scatter(np.linspace(0, len(t_sys_rr), len(t_sys_rr)), t_sys_rr)
+            ax7.scatter(np.linspace(0, len(t_sys_ll), len(t_sys_ll)), t_sys_ll)
             
             stokes_i_raw = np.abs(np.sum(spw_data[:,:,(0,3)],axis=-1))
             flag_raw = np.abs(np.sum(spw_data.mask[:,:,(0,3)],axis=-1))
@@ -191,7 +191,7 @@ def main():
                      extent=[np.min(time), np.max(time), np.min(f_spw), np.max(f_spw)],
                      vmin = np.percentile(stokes_i_raw.T, 1), vmax = np.percentile(stokes_i_raw.T, 95))
 
-            #ax2[spw].scatter(frequencies_list_for_each_if[spw], np.median(stokes_i_raw, axis=0))
+            ax2[spw].scatter(frequencies_list_for_each_if[spw], np.median(stokes_i_raw, axis=0))
 
             ll_corrected_banpass = []
             rr_corrected_banpass = []
@@ -256,26 +256,26 @@ def main():
                      extent=[np.min(time), np.max(time), np.min(f_spw), np.max(f_spw)],
                      vmin = np.percentile(stokes_i_banpass_corrected.T, 1), vmax = np.percentile(stokes_i_banpass_corrected.T, 95))
             
-            #ax4[spw].scatter(frequencies_list_for_each_if[spw], np.median(stokes_i_banpass_corrected, axis=0))
-            #ax4[spw].scatter(frequencies_list_for_each_if[spw], np.average(stokes_i_banpass_corrected, axis=0))
+            ax4[spw].scatter(frequencies_list_for_each_if[spw], np.median(stokes_i_banpass_corrected, axis=0))
+            ax4[spw].scatter(frequencies_list_for_each_if[spw], np.average(stokes_i_banpass_corrected, axis=0))
             
             avg_freq_raw =  np.median(stokes_i_raw, axis=1)
             
-            #ax5[spw].scatter(np.linspace(0,1, len(avg_freq_raw)), avg_freq_raw)
+            ax5[spw].scatter(np.linspace(0,1, len(avg_freq_raw)), avg_freq_raw)
 
             avg_freq_banpass_corrected =  np.median(stokes_i_banpass_corrected, axis=1)
             avg_freq_banpass_corrected_a =  np.average(stokes_i_banpass_corrected, axis=1)
-            #ax6[spw].scatter(np.linspace(0,1, len(avg_freq_banpass_corrected)), avg_freq_banpass_corrected)
-            #ax6[spw].scatter(np.linspace(0,1, len(avg_freq_banpass_corrected)), avg_freq_banpass_corrected_a)
+            ax6[spw].scatter(np.linspace(0,1, len(avg_freq_banpass_corrected)), avg_freq_banpass_corrected)
+            ax6[spw].scatter(np.linspace(0,1, len(avg_freq_banpass_corrected)), avg_freq_banpass_corrected_a)
 
             im3 = ax8[spw].imshow(stokes_i_gain_corrected.T, aspect="auto",
                      extent=[np.min(time), np.max(time), np.min(f_spw), np.max(f_spw)],
                      vmin = np.percentile(stokes_i_gain_corrected.T, 1), vmax = np.percentile(stokes_i_gain_corrected.T, 95))
             
-            #ax9[spw].scatter(frequencies_list_for_each_if[spw], np.median(stokes_i_gain_corrected, axis=0))
+            ax9[spw].scatter(frequencies_list_for_each_if[spw], np.median(stokes_i_gain_corrected, axis=0))
             
             avg_freq_gain_corrected = np.median(stokes_i_gain_corrected, axis=1)
-            #ax10[spw].scatter(np.linspace(0,1, len(avg_freq_gain_corrected)), avg_freq_gain_corrected, label="data")
+            ax10[spw].scatter(np.linspace(0,1, len(avg_freq_gain_corrected)), avg_freq_gain_corrected, label="data")
 
             if calibrator:
                 polyfit = np.polyfit(np.linspace(0, 1, len(avg_freq_gain_corrected)), avg_freq_gain_corrected, 1) 
@@ -286,8 +286,8 @@ def main():
                 output = avg_freq_gain_corrected / polyval
                 output_calibrator.append(output)
                 ax11.scatter(np.linspace(0,1, len(output)), output, label=str(spw))
-                #ax10[spw].scatter(np.linspace(0,1, len(avg_freq_gain_corrected)), polyval, label="model")
-                #ax10[spw].scatter(np.linspace(0,1, len(avg_freq_gain_corrected)), output, label="result")
+                ax10[spw].scatter(np.linspace(0,1, len(avg_freq_gain_corrected)), polyval, label="model")
+                ax10[spw].scatter(np.linspace(0,1, len(avg_freq_gain_corrected)), output, label="result")
 
             else:
                 calibrator_poly1d = output_calibrator_poly1d[spw]
@@ -296,11 +296,50 @@ def main():
                 output = avg_freq_gain_corrected / polyval
                 output_target.append(output)
                 ax11.scatter(np.linspace(0,1, len(output)), output, label=str(spw))
-                #ax10[spw].scatter(np.linspace(0,1, len(avg_freq_gain_corrected)), polyval, label="model")
-                #ax10[spw].scatter(np.linspace(0,1, len(avg_freq_gain_corrected)), output, label="result")
+                ax10[spw].scatter(np.linspace(0,1, len(avg_freq_gain_corrected)), polyval, label="model")
+                ax10[spw].scatter(np.linspace(0,1, len(avg_freq_gain_corrected)), output, label="result")
         
         ax11.legend()
-        #ax10[spw].legend()
+        ax10[spw].legend()
+
+        fig1.tight_layout()
+        fig2.tight_layout()
+        fig3.tight_layout()
+        fig4.tight_layout()
+        fig5.tight_layout()
+        fig6.tight_layout()
+        fig7.tight_layout()
+        fig8.tight_layout()
+        fig9.tight_layout()
+        fig10.tight_layout()
+        fig11.tight_layout()
+
+        fig1.subplots_adjust(wspace=0, hspace=0)
+        fig2.subplots_adjust(wspace=0, hspace=0)
+        fig3.subplots_adjust(wspace=0, hspace=0)
+        fig4.subplots_adjust(wspace=0, hspace=0)
+        fig5.subplots_adjust(wspace=0, hspace=0)
+        fig6.subplots_adjust(wspace=0, hspace=0)
+        fig7.subplots_adjust(wspace=0, hspace=0)
+        fig8.subplots_adjust(wspace=0, hspace=0)
+        fig9.subplots_adjust(wspace=0, hspace=0)
+        fig10.subplots_adjust(wspace=0, hspace=0)
+        fig11.subplots_adjust(wspace=0, hspace=0)
+  
+        fig1.savefig("_".join([source, "raw", "dynamic_spectrum"]) + ".png")
+        fig2.savefig("_".join([source, "raw", "IF_plots"]) + ".png" )
+        fig3.savefig("_".join([source, "banpass_corrected", "dynamic_spectrum"]) + ".png")
+        fig4.savefig("_".join([source, "banpass_corrected", "IF_plots"]) + ".png")
+        fig5.savefig("_".join([source, "raw", "avg_freq"]) + ".png")
+        fig6.savefig("_".join([source, "banpass_corrected", "avg_freq"]) + ".png")
+        fig7.savefig("_".join([source, "tsys"]) + ".png")
+        fig8.savefig("_".join([source, "gain_corrected", "dynamic_spectrum"]) + ".png")
+        fig9.savefig("_".join([source, "gain_corrected", "IF_plots"]) + ".png")
+        fig10.savefig("_".join([source, "gain_corrected", "avg_freq"]) + ".png")
+        fig11.savefig("_".join([source, "model_data"]) + ".png")
+
+        plt.close('all')
+
         if calibrator:
             calibrator = False
 
@@ -326,8 +365,11 @@ def main():
 
     ax12.scatter(np.linspace(0,1, len(result_calibrator)), result_calibrator)
     ax13.scatter(np.linspace(0,1, len(result_target)), result_target)
-               
-    plt.show()
+    
+    fig12.savefig("Final_results_calibrator.png")
+    fig13.savefig("Final_results_target.png")
+    plt.close('all')           
+    #plt.show()
 
 
 if __name__ ==  "__main__":
